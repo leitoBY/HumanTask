@@ -30,4 +30,9 @@ public class TaskServiceImpl implements TaskService {
 		taskDAO.deleteTask(taskId);		
 	}
 
+	@Override
+	public List<Task> gelAllHumanTasks(int id) {
+		return taskDAO.getAllHumanTasks(id);
+	}
+
 }

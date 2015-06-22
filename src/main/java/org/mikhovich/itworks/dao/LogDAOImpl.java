@@ -3,6 +3,7 @@ package org.mikhovich.itworks.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mikhovich.itworks.model.Human;
 import org.mikhovich.itworks.model.Log;
@@ -42,7 +43,7 @@ public class LogDAOImpl implements LogDAO {
 		
 	}
 
-	public List<Log> getAlLogs() {
+	public List<Log> getAllLogs() {
 		List<Log> logs = new ArrayList<Log>();
 		Session session = null;
 		try {
@@ -73,6 +74,25 @@ public class LogDAOImpl implements LogDAO {
 			if ((session != null) && (session.isOpen()))session.close();  
 		}
 		
+	}
+
+	@Override
+	public List<Log> getAllTaskLogs(int taskId) {
+		List<Log> logs = new ArrayList<Log>();
+		Session session = null;
+		try {
+			session = HibernateUtil.createSessionFactory().openSession();
+			Query query = session.createQuery("from Log where taskId= :task_id");
+			query.setParameter("task_id", taskId);
+			logs = query.list();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			if ((session != null) && (session.isOpen()))session.close();  
+		}	
+		return logs;
 	}
 
 }

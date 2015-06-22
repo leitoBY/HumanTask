@@ -1,16 +1,23 @@
 package org.mikhovich.itworks.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /** Class Task */
 
 @Entity
-@Table(name ="Task")
+@Table(name ="Tasks")
 public class Task {
 	
 	@Id
@@ -50,9 +57,9 @@ public class Task {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	/*
+	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = true)
+	@JoinColumn(name = "humanId", nullable = true)
 	
 	private Human human;
 
@@ -63,20 +70,15 @@ public class Task {
 		this.human = human;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="Task")
-	private Set<Log> logList;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="task")
+	private List<Log> logList = new ArrayList<Log>();
 
-	public Set<Log> getLogList() {
+
+	public List<Log> getLogList() {
 		return logList;
 	}
-	public void setLogList(Set<Log> logList) {
+	public void setLogList(List<Log> logList) {
 		this.logList = logList;
 	}
-	
-	*/
-	
-	
-	
-	
 
 }

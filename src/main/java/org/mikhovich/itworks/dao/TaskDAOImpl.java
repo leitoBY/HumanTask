@@ -3,6 +3,7 @@ package org.mikhovich.itworks.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mikhovich.itworks.model.Human;
 import org.mikhovich.itworks.model.Task;
@@ -73,6 +74,26 @@ public class TaskDAOImpl implements TaskDAO {
 			if ((session != null) && (session.isOpen()))session.close();  
 		}
 			
+	}
+
+	@Override
+	public List<Task> getAllHumanTasks(int Id) {
+		List<Task> tasks = new ArrayList<Task>();
+		Session session = null;
+		try {
+			session = HibernateUtil.createSessionFactory().openSession();
+		
+			Query query = session.createQuery("from Task where humanId= :human_id");
+			query.setParameter("human_id", Id);
+			tasks = query.list();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			if ((session != null) && (session.isOpen()))session.close();  
+		}	
+		return tasks;
 	}
 
 }

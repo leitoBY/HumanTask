@@ -9,6 +9,6 @@ public interface TaskDAO {
 	public void addTask(Task task);
 	public void updateTask(Task task);
 	public List<Task> getAllTasks();
+	public List<Task> getAllHumanTasks(int id);
 	public void deleteTask(int taskId);
-
 }

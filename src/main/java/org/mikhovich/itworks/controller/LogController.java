@@ -13,6 +13,8 @@ public class LogController {
 
 	private LogService logService = new LogServiceImpl();
 	private ObservableList<Log> logList = FXCollections.observableArrayList();
+	private ObservableList<Log> logList2 = FXCollections.observableArrayList();
+	
 	
 	public void addLog(Log log) {
 		logService.addLog(log);
@@ -33,5 +35,14 @@ public class LogController {
 		logList = FXCollections.observableList((List<Log>) logService.getAllLogs());
 		return logList;	
 	}
+	
+	public ObservableList<Log> getTaskLogsList(int taskId) {
+		if(!logList2.isEmpty()) {
+			logList2.clear();
+		}
+		logList2 = FXCollections.observableList((List<Log>) logService.getAllTaskLogs(taskId));
+		return logList2;	
+	}
+	
 	
 }

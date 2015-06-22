@@ -2,6 +2,8 @@ package org.mikhovich.itworks.general;
 
 import java.sql.SQLException;
 
+
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +21,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+
 
 import org.mikhovich.itworks.controller.HumanController;
 import org.mikhovich.itworks.controller.LogController;
@@ -58,8 +62,6 @@ public class project extends Application {
 		border.setBottom(createForm());
 		border.setPadding(new Insets(10, 10, 10, 10));
 		populateTable();
-		populateTable2();
-		populateTable3();
 		stage.setScene(new Scene(border, 850, 550));
 		
 		table1.setRowFactory( tv -> {
@@ -72,10 +74,24 @@ public class project extends Application {
 		            textField[2].setText(rowData.getMiddleName());
 		            textField[3].setText(rowData.getLogin());
 		            textField[4].setText(rowData.getPassword());
+		            populateTable2(rowData.getHumanId());
 		        } 
 		    });
 		    return row ;
 		});
+		
+		table2.setRowFactory( tv -> {
+		    TableRow<Task> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		    	if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+		            Task rowData = row.getItem();
+		            
+		            populateTable3(rowData.getTaskId());
+		        } 
+		    });
+		    return row ;
+		});
+		
 		
 		stage.show();
 	}
@@ -144,7 +160,7 @@ public class project extends Application {
 			else if (event.getSource().equals(button[2])) {
 				int num = table1.getSelectionModel().getSelectedIndex();
 				Human h = (Human) hController.getHumanList().get(num);
-				hController.deleteHuman(h.getId());
+				hController.deleteHuman(h.getHumanId());
 				populateTable();	
 			}
 			//clear fields
@@ -186,9 +202,9 @@ public class project extends Application {
 		
 	}
 	
-	private void populateTable2() {
+	private void populateTable2(int id) {
 		table2.getItems().clear();
-		table2.setItems(tController.getTasksList());
+		table2.setItems(tController.getHumanTasksList(id));
 		table2.setPadding(new Insets(10,10,10,10));
 
 		TableColumn<Task, String> taskNameCol = new TableColumn<Task, String>("Task");
@@ -200,9 +216,9 @@ public class project extends Application {
 		
 	}
 	
-	private void populateTable3() {
+	private void populateTable3(int taskId) {
 		table3.getItems().clear();
-		table3.setItems(lController.getLogsList());
+		table3.setItems(lController.getTaskLogsList(taskId));
 		table3.setPadding(new Insets(10,10,10,10));
 		
 		TableColumn<Log, Integer> timeCol = new TableColumn<Log, Integer>("Time");

@@ -9,5 +9,6 @@ public interface TaskService {
 	public void updateTask(Task task);
 	public List<Task> getAllTasks();
 	public void deleteTask(int taskId);
+	public List<Task> gelAllHumanTasks(int id);
 
 }

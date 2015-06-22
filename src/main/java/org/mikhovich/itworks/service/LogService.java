@@ -10,5 +10,5 @@ public interface LogService {
 	public void updateLog(Log log);
 	public List<Log> getAllLogs();
 	public void deleteLog(int logId);
-
+	public List<Log> getAllTaskLogs(int taskId);
 }

@@ -10,8 +10,8 @@ public interface LogDAO {
 	
 	public void addLog(Log log);
 	public void updateLog(Log log);
-	public List<Log> getAlLogs();
+	public List<Log> getAllLogs();
 	public void deleteLog(int logId);
-	
+	public List<Log> getAllTaskLogs(int taskId);
 
 }

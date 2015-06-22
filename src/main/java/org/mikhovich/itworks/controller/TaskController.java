@@ -13,6 +13,8 @@ public class TaskController {
 
 	private TaskService taskService = new TaskServiceImpl();
 	private ObservableList<Task> taskList = FXCollections.observableArrayList();
+	private ObservableList<Task> taskList2 = FXCollections.observableArrayList();
+	
 	
 	public void addTask(Task task) {
 		taskService.addTask(task);
@@ -33,7 +35,15 @@ public class TaskController {
 		taskList = FXCollections.observableList((List<Task>) taskService.getAllTasks());
 		return taskList;	
 	}
-
+	
+	public ObservableList<Task> getHumanTasksList(int id) {
+		if(!taskList2.isEmpty()) {
+			taskList2.clear();
+		}
+		taskList2 = FXCollections.observableList((List<Task>) taskService.gelAllHumanTasks(id));
+		return taskList2;	
+	}
+	
 
 	
 }

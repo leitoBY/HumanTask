@@ -22,12 +22,17 @@ public class LogServiceImpl implements LogService {
 
 	@Override
 	public List<Log> getAllLogs() {
-		return logDAO.getAlLogs();
+		return logDAO.getAllLogs();
 	}
 
 	@Override
 	public void deleteLog(int logId) {
 		logDAO.deleteLog(logId);
+	}
+
+	@Override
+	public List<Log> getAllTaskLogs(int taskId) {
+		return logDAO.getAllTaskLogs(taskId);
 	}
 
 }

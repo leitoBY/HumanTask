@@ -1,22 +1,27 @@
 package org.mikhovich.itworks.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 /** Class Human */
 
 @Entity
-@Table (name = "Human")
+@Table (name = "Humans")
 public class Human {
 	
 	@Id
-	@Column (name ="id")
+	@Column (name ="humanId")
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	private int id;
+	private int humanId;
 	private String firstName;
 	private String lastName;
 	private String middleName;
@@ -36,12 +41,15 @@ public class Human {
 		this.login = login;
 		this.password = password;
 	}
-	public int getId() {
-		return id;
+	
+	public int getHumanId() {
+		return humanId;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setHumanId(int humanId) {
+		this.humanId = humanId;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -73,9 +81,14 @@ public class Human {
 		this.password = password;
 	}
 	
-	
-	
-	
-	
-	
+	@OneToMany(mappedBy = "human", fetch = FetchType.LAZY)
+    private List<Task> tasksList = new ArrayList<Task>();
+
+	public List<Task> getTasksList() {
+		return tasksList;
+	}
+	public void setTasksList(List<Task> tasksList) {
+		this.tasksList = tasksList;
+	}
+
 }
